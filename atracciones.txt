@@ -6,3 +6,6 @@ Abismo de Helm,PAISAJE,5,2,15
 Lothlorien,DEGUSTACION,35,1,30
 Erebor,PAISAJE,12,3,32
 Bosque Negro,AVENTURA,3,4,12
+Bosques De Palermo,AVENTURA,1,2,3
+CABA,DEGUSTACION,3,2,1
+Puerto Palermo,DEGUSTACION,4,5,6

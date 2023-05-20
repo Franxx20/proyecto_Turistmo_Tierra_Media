@@ -7,6 +7,12 @@ public abstract class Promocion {
 	ArrayList<Atraccion> atracciones;
 	String tipoPromocion;
 
+	@Override
+	public String toString() {
+		return "Promocion [atracciones=" + atracciones + ", tipoPromocion=" + tipoPromocion + ", duracionTotal="
+				+ duracionTotal + ", precioTotal=" + precioTotal + "]";
+	}
+
 	public Promocion( ArrayList<Atraccion> atracciones, double duracionTotal, int precioTotal ) {
 		this.atracciones = atracciones;
 		this.duracionTotal = duracionTotal;
