@@ -9,7 +9,7 @@ public class Atraccion {
 	int costo;
 	double tiempo;
 	int cupo;
-	Tipo tipo;
+	Tipo preferencia;
 
 	public Atraccion(String nombre,Tipo tipo, int costo, double tiempo, int cupo) {
 		super();
@@ -17,13 +17,13 @@ public class Atraccion {
 		this.costo = costo;
 		this.tiempo = tiempo;
 		this.cupo = cupo;
-		this.tipo = tipo;
+		this.preferencia = tipo;
 	}
 
 	@Override
 	public String toString() {
 		return "Atraccion [nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo=" + cupo + ", tipo="
-				+ tipo + "]" + "\n";
+				+ preferencia + "]" + "\n";
 	}
 
 	public String getNombre() {
@@ -59,11 +59,11 @@ public class Atraccion {
 	}
 
 	public Tipo getTipo() {
-		return tipo;
+		return preferencia;
 	}
 
 	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
+		this.preferencia = tipo;
 	}
 
 

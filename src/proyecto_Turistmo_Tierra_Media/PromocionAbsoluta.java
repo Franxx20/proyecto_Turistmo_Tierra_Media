@@ -15,8 +15,8 @@ public class PromocionAbsoluta extends Promocion {
 
 	//ABSOLUTA,AVENTURA,30,Mordor,Moria
 
-	public PromocionAbsoluta( double duracionTotal, int precioTotal,ArrayList<Atraccion> atracciones) {
-		super(atracciones, duracionTotal, precioTotal);
+	public PromocionAbsoluta( double duracionTotal, int precioTotal,ArrayList<Atraccion> atracciones,Tipo tipoPromocion) {
+		super(atracciones, duracionTotal, precioTotal, tipoPromocion);
 		// TODO Auto-generated constructor stub
 	}
 

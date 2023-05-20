@@ -58,7 +58,6 @@ public class Archivo {
 			scanner.close();
 		}
 
-
 		return mapaAtracciones;
 	}
 
@@ -80,6 +79,7 @@ public class Archivo {
 			parseo = linea.split(",");
 
 			String tipo = parseo[0];
+			Tipo preferencia = null;
 
 			switch (tipo) {
 			case "ABSOLUTA": {
@@ -93,12 +93,13 @@ public class Archivo {
 					Atraccion atraccion = mapaAtracciones.get(nombreAtraccion);
 					duracionTotal += atraccion.getTiempo();
 					precioTotal += atraccion.getCosto();
+					preferencia = atraccion.getTipo();
 
 					lista_atracciones.add(atraccion);
 
 				}
 
-				Promocion promocion = new PromocionAbsoluta(duracionTotal, precioTotal, lista_atracciones);
+				Promocion promocion = new PromocionAbsoluta(duracionTotal, precioTotal, lista_atracciones, preferencia);
 
 				promociones.add(promocion);
 
@@ -119,6 +120,7 @@ public class Archivo {
 					int cantAtracciones = Integer.valueOf(parseo[3]);
 					double duracionTotal = 0;
 					int precioTotal = 0;
+
 					ArrayList<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 
 					for (int i = 0; i < cantAtracciones; i++) {
@@ -126,12 +128,14 @@ public class Archivo {
 						Atraccion atraccion = mapaAtracciones.get(nombreAtraccion);
 						duracionTotal += atraccion.getTiempo();
 						precioTotal += atraccion.getCosto();
+						preferencia = atraccion.getTipo();
 
 						lista_atracciones.add(atraccion);
 
 					}
 
-					Promocion promocion = new PromocionAbsoluta(duracionTotal, precioTotal, lista_atracciones);
+					Promocion promocion = new PromocionAbsoluta(duracionTotal, precioTotal, lista_atracciones,
+							preferencia);
 
 					promociones.add(promocion);
 
@@ -150,6 +154,11 @@ public class Archivo {
 		}
 
 		return promociones;
+	}
+
+	public ArrayList<Usuario> leerArchivoUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -15,6 +15,10 @@ public class Main {
 		System.out.println("promociones");
 		ArrayList<Promocion> promociones = archivo.leerArchivoPromociones(mapaAtracciones);
 		System.out.println(promociones);
+
+		System.out.println("Usuarios");
+		ArrayList<Usuario> usuarios = archivo.leerArchivoUsuarios();
+		System.out.println(usuarios);
 	}
 
 }

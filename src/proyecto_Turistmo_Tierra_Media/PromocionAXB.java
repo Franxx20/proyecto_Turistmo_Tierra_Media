@@ -10,8 +10,8 @@ public class PromocionAXB extends Promocion {
 				+ duracionTotal + ", precioTotal=" + precioTotal + "]";
 	}
 
-	public PromocionAXB(ArrayList<Atraccion> atracciones, double duracionTotal, int precioTotal, String tipoPromocion) {
-		super(atracciones, duracionTotal, precioTotal);
+	public PromocionAXB(ArrayList<Atraccion> atracciones, double duracionTotal, int precioTotal, Tipo tipoPromocion) {
+		super(atracciones, duracionTotal, precioTotal, tipoPromocion);
 		// TODO Auto-generated constructor stub
 	}
 

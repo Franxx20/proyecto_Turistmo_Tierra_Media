@@ -5,7 +5,16 @@ import java.util.ArrayList;
 public abstract class Promocion {
 
 	ArrayList<Atraccion> atracciones;
-	String tipoPromocion;
+	Tipo tipoPromocion;
+
+
+	public Promocion( ArrayList<Atraccion> atracciones, double duracionTotal, int precioTotal, Tipo tipoPromocion ) {
+		this.atracciones = atracciones;
+		this.duracionTotal = duracionTotal;
+		this.precioTotal = precioTotal;
+		this.tipoPromocion = tipoPromocion;
+	}
+
 
 	@Override
 	public String toString() {
@@ -13,11 +22,6 @@ public abstract class Promocion {
 				+ duracionTotal + ", precioTotal=" + precioTotal + "]";
 	}
 
-	public Promocion( ArrayList<Atraccion> atracciones, double duracionTotal, int precioTotal ) {
-		this.atracciones = atracciones;
-		this.duracionTotal = duracionTotal;
-		this.precioTotal = precioTotal;
-	}
 
 	public ArrayList<Atraccion> getAtracciones() {
 		return atracciones;
@@ -25,10 +29,10 @@ public abstract class Promocion {
 	public void setAtracciones(ArrayList<Atraccion> atracciones) {
 		this.atracciones = atracciones;
 	}
-	public String getTipoPromocion() {
+	public Tipo getTipoPromocion() {
 		return tipoPromocion;
 	}
-	public void setTipoPromocion(String tipoPromocion) {
+	public void setTipoPromocion(Tipo tipoPromocion) {
 		this.tipoPromocion = tipoPromocion;
 	}
 	public double getDuracionTotal() {

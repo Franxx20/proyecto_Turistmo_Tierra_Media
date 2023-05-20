@@ -10,8 +10,8 @@ public class PromocionPorcentual extends Promocion {
 				+ ", duracionTotal=" + duracionTotal + ", precioTotal=" + precioTotal + "]";
 	}
 
-	public PromocionPorcentual(ArrayList<Atraccion> atracciones, double duracionTotal, int precioTotal,String tipoPromocion) {
-		super(atracciones, duracionTotal, precioTotal);
+	public PromocionPorcentual(ArrayList<Atraccion> atracciones, double duracionTotal, int precioTotal,Tipo tipoPromocion) {
+		super(atracciones, duracionTotal, precioTotal, tipoPromocion);
 		// TODO Auto-generated constructor stub
 	}
 
