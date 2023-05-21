@@ -12,153 +12,189 @@ import java.util.Scanner;
 
 public class Archivo {
 
-	public HashMap<String, Atraccion> leerArchivoAtracciones() {
+  public HashMap<String, Atraccion> leerArchivoAtracciones() {
 
-		Scanner scanner = null;
-		HashMap<String, Atraccion> mapaAtracciones = new HashMap<String, Atraccion>();
+    Scanner scanner = null;
+    HashMap<String, Atraccion> mapaAtracciones = new HashMap<String, Atraccion>();
 
-		try {
-			File file = new File("atracciones.txt");
-			scanner = new Scanner(file);
-			// Especifica la configuración regional que se va a utilizar
-			scanner.useLocale(Locale.ENGLISH);
-			// Para la configuracion regional de Argentina, utilizar:
-			// arch.useLocale(new Locale("es_AR"));
+    try {
+      // File file = new File("atracciones.txt");
+      File file = new File("../../casos de prueba/in/atracciones.txt");
+      scanner = new Scanner(file);
+      // Especifica la configuración regional que se va a utilizar
+      scanner.useLocale(Locale.ENGLISH);
+      // Para la configuracion regional de Argentina, utilizar:
+      // arch.useLocale(new Locale("es_AR"));
 
-			String datos[];
-			String linea = scanner.nextLine();
-			datos = linea.split(",");
+      while (scanner.hasNext()) {
+        String linea = scanner.nextLine();
+        String[] datos = linea.split(",");
 
-			String nombre = datos[0];
-			Tipo tipo = Tipo.valueOf(datos[1]);
-			int costo = Integer.valueOf((datos[2]));
-			double tiempo = Double.valueOf(datos[3]);
-			int cupo = Integer.valueOf(datos[4]);
-			Atraccion atraccion = new Atraccion(nombre, tipo, costo, tiempo, cupo);
-			mapaAtracciones.put(nombre, atraccion);
+        String nombre = datos[0];
 
-			while (scanner.hasNext()) {
-				linea = scanner.nextLine();
-				datos = linea.split(",");
+        TipoDeAtraccion tipo = TipoDeAtraccion.valueOf(datos[1]);
+        int costo = Integer.valueOf((datos[2]));
+        double tiempo = Double.valueOf(datos[3]);
+        int cupo = Integer.valueOf(datos[4]);
 
-				nombre = datos[0];
+        Atraccion atraccion = new Atraccion(nombre, tipo, costo, tiempo, cupo);
+        mapaAtracciones.put(nombre, atraccion);
+      }
 
-				tipo = Tipo.valueOf(datos[1]);
-				costo = Integer.valueOf((datos[2]));
-				tiempo = Double.valueOf(datos[3]);
-				cupo = Integer.valueOf(datos[4]);
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      scanner.close();
+    }
 
-				atraccion = new Atraccion(nombre, tipo, costo, tiempo, cupo);
-				mapaAtracciones.put(nombre, atraccion);
-			}
+    return mapaAtracciones;
+  }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			scanner.close();
-		}
+  public ArrayList<Promocion> leerArchivoPromociones(HashMap<String, Atraccion> mapaAtracciones) {
+    Scanner scanner = null;
 
-		return mapaAtracciones;
-	}
+    ArrayList<Promocion> promociones = new ArrayList<Promocion>();
 
-	public ArrayList<Promocion> leerArchivoPromociones(HashMap<String, Atraccion> mapaAtracciones) {
-		Scanner scanner = null;
+    try {
+      // File file = new File("promociones.txt");
+      File file = new File("../../casos de prueba/in/promociones.txt");
+      scanner = new Scanner(file);
+      // Especifica la configuración regional que se va a utilizar
+      scanner.useLocale(Locale.ENGLISH);
 
-		ArrayList<Promocion> promociones = new ArrayList<Promocion>();
+      while (scanner.hasNext()) {
+        String linea = scanner.nextLine();
+        String[] parseo = linea.split(",");
 
-		try {
-			File file = new File("promociones.txt");
-			scanner = new Scanner(file);
-			// Especifica la configuración regional que se va a utilizar
-			scanner.useLocale(Locale.ENGLISH);
-			// Para la configuracion regional de Argentina, utilizar:
-			// arch.useLocale(new Locale("es_AR"));
+        String tipo = parseo[0];
+        TipoDeAtraccion preferencia = null;
 
-			String parseo[];
-			String linea = scanner.nextLine();
-			parseo = linea.split(",");
+        switch (tipo) {
+          case "ABSOLUTA": {
+            int cantAtracciones = Integer.valueOf(parseo[3]);
+            double duracionTotal = 0;
+            int precioTotalOriginal = 0;
+            int precioConDescuento = Integer.valueOf(parseo[2]);
+            ArrayList<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 
-			String tipo = parseo[0];
-			Tipo preferencia = null;
+            for (int i = 0; i < cantAtracciones; i++) {
+              String nombreAtraccion = parseo[4 + i];
+              Atraccion atraccion = mapaAtracciones.get(nombreAtraccion);
+              duracionTotal += atraccion.getTiempo();
+              precioTotalOriginal += atraccion.getCosto();
+              preferencia = atraccion.getTipoDeAtraccion();
 
-			switch (tipo) {
-			case "ABSOLUTA": {
-				int cantAtracciones = Integer.valueOf(parseo[3]);
-				double duracionTotal = 0;
-				int precioTotal = 0;
-				ArrayList<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
+              lista_atracciones.add(atraccion);
 
-				for (int i = 0; i < cantAtracciones; i++) {
-					String nombreAtraccion = parseo[4 + i];
-					Atraccion atraccion = mapaAtracciones.get(nombreAtraccion);
-					duracionTotal += atraccion.getTiempo();
-					precioTotal += atraccion.getCosto();
-					preferencia = atraccion.getTipo();
+            }
 
-					lista_atracciones.add(atraccion);
+            Promocion promocion = new PromocionAbsoluta(duracionTotal, precioConDescuento, lista_atracciones,
+                preferencia);
+            promocion.setPrecioOriginal(precioTotalOriginal);
 
-				}
+            promociones.add(promocion);
 
-				Promocion promocion = new PromocionAbsoluta(duracionTotal, precioTotal, lista_atracciones, preferencia);
+            break;
+          }
+          case "AXB": {
+            int cantAtracciones = Integer.valueOf(parseo[3]);
+            int precioTotalOriginal = 0;
+            int precioConDescuento = Integer.valueOf(parseo[2]);
+            double duracionTotal = 0;
+            ArrayList<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 
-				promociones.add(promocion);
+            for (int i = 0; i < cantAtracciones; i++) {
+              String nombreAtraccion = parseo[4 + i];
+              Atraccion atraccion = mapaAtracciones.get(nombreAtraccion);
+              duracionTotal += atraccion.getTiempo();
+              precioTotalOriginal += atraccion.getCosto();
+              preferencia = atraccion.getTipoDeAtraccion();
+              lista_atracciones.add(atraccion);
+            }
 
-				break;
-			}
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + tipo);
-			}
+            Promocion promocion = new PromocionAXB(duracionTotal, precioConDescuento, lista_atracciones,
+                preferencia);
+            promocion.setPrecioOriginal(precioTotalOriginal);
 
-			while (scanner.hasNext()) {
-				linea = scanner.nextLine();
-				parseo = linea.split(",");
+            promociones.add(promocion);
 
-				tipo = parseo[0];
+            break;
+          }
+          case "PORCENTUAL": {
+            int cantAtracciones = Integer.valueOf(parseo[3]);
+            int precioTotalOriginal = 0;
+            int precioConDescuento = 0;
+            int porcentajeDescuento = 100 - Integer.valueOf(parseo[2]);
+            double duracionTotal = 0;
+            ArrayList<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
 
-				switch (tipo) {
-				case "ABSOLUTA": {
-					int cantAtracciones = Integer.valueOf(parseo[3]);
-					double duracionTotal = 0;
-					int precioTotal = 0;
+            for (int i = 0; i < cantAtracciones; i++) {
+              String nombreAtraccion = parseo[4 + i];
+              Atraccion atraccion = mapaAtracciones.get(nombreAtraccion);
+              duracionTotal += atraccion.getTiempo();
+              precioTotalOriginal += atraccion.getCosto();
+              preferencia = atraccion.getTipoDeAtraccion();
+              lista_atracciones.add(atraccion);
+            }
 
-					ArrayList<Atraccion> lista_atracciones = new ArrayList<Atraccion>();
+            precioConDescuento = (porcentajeDescuento * precioTotalOriginal) / 100;
+            Promocion promocion = new PromocionPorcentual(duracionTotal, precioConDescuento, lista_atracciones,
+                preferencia);
+            promocion.setPrecioOriginal(precioTotalOriginal);
 
-					for (int i = 0; i < cantAtracciones; i++) {
-						String nombreAtraccion = parseo[4 + i];
-						Atraccion atraccion = mapaAtracciones.get(nombreAtraccion);
-						duracionTotal += atraccion.getTiempo();
-						precioTotal += atraccion.getCosto();
-						preferencia = atraccion.getTipo();
+            promociones.add(promocion);
+            break;
+          }
+          default:
+            throw new IllegalArgumentException("Unexpected value: " + tipo);
+        }
 
-						lista_atracciones.add(atraccion);
+      }
 
-					}
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      scanner.close();
+    }
 
-					Promocion promocion = new PromocionAbsoluta(duracionTotal, precioTotal, lista_atracciones,
-							preferencia);
+    return promociones;
+  }
 
-					promociones.add(promocion);
+  public ArrayList<Usuario> leerArchivoUsuarios() {
+    ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    Scanner scanner = null;
 
-					break;
-				}
-				default:
-					throw new IllegalArgumentException("Unexpected value: " + tipo);
-				}
+    try {
+      // File file = new File("usuarios.txt");
+      File file = new File("../../casos de prueba/in/usuarios.txt");
+      scanner = new Scanner(file);
 
-			}
+      scanner.useLocale(Locale.ENGLISH);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			scanner.close();
-		}
+      while (scanner.hasNext()) {
 
-		return promociones;
-	}
+        String linea = scanner.nextLine();
+        String[] parseo = linea.split(",");
 
-	public ArrayList<Usuario> leerArchivoUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        TipoDeAtraccion preferencia = TipoDeAtraccion.valueOf(parseo[0]);
+        String nombre = parseo[1];
+        int presupuesto = Integer.valueOf(parseo[2]);
+        double tiempoDisponible = Double.valueOf(parseo[2]);
+        ArrayList<Atraccion> atraccionesAceptadas = new ArrayList<Atraccion>();
+
+        Usuario usuario = new Usuario(nombre, preferencia, presupuesto, tiempoDisponible, atraccionesAceptadas);
+
+        usuarios.add(usuario);
+      }
+
+    } catch (Exception e) {
+      // TODO: handle exception
+      e.printStackTrace();
+    } finally {
+      scanner.close();
+    }
+
+    return usuarios;
+  }
 
 }

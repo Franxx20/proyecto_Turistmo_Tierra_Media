@@ -1,6 +1,6 @@
 package proyecto_Turistmo_Tierra_Media;
 
-enum Tipo {
+enum TipoDeAtraccion {
 	AVENTURA, PAISAJE, DEGUSTACION
 }
 
@@ -9,21 +9,21 @@ public class Atraccion {
 	int costo;
 	double tiempo;
 	int cupo;
-	Tipo preferencia;
+	TipoDeAtraccion tipo;
 
-	public Atraccion(String nombre,Tipo tipo, int costo, double tiempo, int cupo) {
+	public Atraccion(String nombre, TipoDeAtraccion tipo, int costo, double tiempo, int cupo) {
 		super();
 		this.nombre = nombre;
 		this.costo = costo;
 		this.tiempo = tiempo;
 		this.cupo = cupo;
-		this.preferencia = tipo;
+		this.tipo = tipo;
 	}
 
 	@Override
 	public String toString() {
-		return "Atraccion [nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo=" + cupo + ", tipo="
-				+ preferencia + "]" + "\n";
+		return "\nAtraccion [nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo=" + cupo
+				+ ", tipo=" + tipo + "]" + "\n";
 	}
 
 	public String getNombre() {
@@ -58,13 +58,12 @@ public class Atraccion {
 		this.cupo = cupo;
 	}
 
-	public Tipo getTipo() {
-		return preferencia;
+	public TipoDeAtraccion getTipoDeAtraccion() {
+		return tipo;
 	}
 
-	public void setTipo(Tipo tipo) {
-		this.preferencia = tipo;
+	public void setTipoDeAtraccion(TipoDeAtraccion tipo) {
+		this.tipo = tipo;
 	}
-
 
 }

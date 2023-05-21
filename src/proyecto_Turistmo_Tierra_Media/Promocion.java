@@ -4,51 +4,64 @@ import java.util.ArrayList;
 
 public abstract class Promocion {
 
-	ArrayList<Atraccion> atracciones;
-	Tipo tipoPromocion;
+	protected ArrayList<Atraccion> atracciones;
+	protected TipoDeAtraccion preferenciaPromocion;
+	protected int precioOriginal;
+	protected int precioConDescuento;
+	protected double duracionTotal;
 
-
-	public Promocion( ArrayList<Atraccion> atracciones, double duracionTotal, int precioTotal, Tipo tipoPromocion ) {
+	public Promocion(ArrayList<Atraccion> atracciones, double duracionTotal, int precioConDescuento,
+			TipoDeAtraccion tipoPromocion) {
 		this.atracciones = atracciones;
 		this.duracionTotal = duracionTotal;
-		this.precioTotal = precioTotal;
-		this.tipoPromocion = tipoPromocion;
+		this.precioConDescuento = precioConDescuento;
+		this.preferenciaPromocion = tipoPromocion;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Promocion [atracciones=" + atracciones + ", tipoPromocion=" + tipoPromocion + ", duracionTotal="
-				+ duracionTotal + ", precioTotal=" + precioTotal + "]";
-	}
-
 
 	public ArrayList<Atraccion> getAtracciones() {
 		return atracciones;
 	}
-	public void setAtracciones(ArrayList<Atraccion> atracciones) {
-		this.atracciones = atracciones;
-	}
-	public Tipo getTipoPromocion() {
-		return tipoPromocion;
-	}
-	public void setTipoPromocion(Tipo tipoPromocion) {
-		this.tipoPromocion = tipoPromocion;
-	}
+
 	public double getDuracionTotal() {
 		return duracionTotal;
 	}
+
+	public int getPrecioConDescuento() {
+		return precioConDescuento;
+	}
+
+	public int getPrecioOriginal() {
+		return precioOriginal;
+	}
+
+	public TipoDeAtraccion getTipoDeAtraccionPromocion() {
+		return preferenciaPromocion;
+	}
+
+	public void setAtracciones(ArrayList<Atraccion> atracciones) {
+		this.atracciones = atracciones;
+	}
+
 	public void setDuracionTotal(double duracionTotal) {
 		this.duracionTotal = duracionTotal;
 	}
-	public int getPrecioTotal() {
-		return precioTotal;
-	}
-	public void setPrecioTotal(int precioTotal) {
-		this.precioTotal = precioTotal;
+
+	public void setPrecioConDescuento(int precioConDescuento) {
+		this.precioConDescuento = precioConDescuento;
 	}
 
-	double duracionTotal;
-	int precioTotal;
+	public void setPrecioOriginal(int precioOriginal) {
+		this.precioOriginal = precioOriginal;
+	}
+
+	public void setTipoDeAtraccionPromocion(TipoDeAtraccion tipoPromocion) {
+		this.preferenciaPromocion = tipoPromocion;
+	}
+
+	@Override
+	public String toString() {
+		return "Promocion [atracciones=" + atracciones + ", tipoPromocion=" + preferenciaPromocion + ", duracionTotal="
+				+ duracionTotal + ", precioTotal=" + precioConDescuento + "]";
+	}
 
 }
