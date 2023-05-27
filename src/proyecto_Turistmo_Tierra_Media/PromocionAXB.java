@@ -6,15 +6,14 @@ public class PromocionAXB extends Promocion {
 
 	@Override
 	public String toString() {
-		return "PromocionAXB [" + "tipoPromocion=" + preferenciaPromocion + ", precioConDescuento="
+		return "PromocionAXB [" + "tipoPromocion=" + tipoDePaquete + ", precioConDescuento="
 				+ precioConDescuento + ", precioOriginal=" + precioOriginal + ", duracionTotal=" + duracionTotal
 				+ ", atracciones=" + atracciones + "]" + "\n";
 	}
 
 	public PromocionAXB(double duracionTotal, int precioConDescuento, ArrayList<Atraccion> atracciones,
-			TipoDeAtraccion tipoPromocion) {
+			TipoDePaquete tipoPromocion) {
 		super(atracciones, duracionTotal, precioConDescuento, tipoPromocion);
-		// TODO Auto-generated constructor stub
 	}
 
 }

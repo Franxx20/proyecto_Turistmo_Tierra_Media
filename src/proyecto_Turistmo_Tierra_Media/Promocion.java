@@ -2,20 +2,18 @@ package proyecto_Turistmo_Tierra_Media;
 
 import java.util.ArrayList;
 
-public abstract class Promocion {
+public abstract class Promocion extends paqueteTuristico{
 
-	protected ArrayList<Atraccion> atracciones;
-	protected TipoDeAtraccion preferenciaPromocion;
 	protected int precioOriginal;
 	protected int precioConDescuento;
 	protected double duracionTotal;
 
-	public Promocion(ArrayList<Atraccion> atracciones, double duracionTotal, int precioConDescuento,
-			TipoDeAtraccion tipoPromocion) {
+	 Promocion(ArrayList<Atraccion> atracciones, double duracionTotal, int precioConDescuento,
+			TipoDePaquete tipoPromocion) {
+		super(tipoPromocion);
 		this.atracciones = atracciones;
 		this.duracionTotal = duracionTotal;
 		this.precioConDescuento = precioConDescuento;
-		this.preferenciaPromocion = tipoPromocion;
 	}
 
 	public ArrayList<Atraccion> getAtracciones() {
@@ -34,10 +32,6 @@ public abstract class Promocion {
 		return precioOriginal;
 	}
 
-	public TipoDeAtraccion getTipoDeAtraccionPromocion() {
-		return preferenciaPromocion;
-	}
-
 	public void setAtracciones(ArrayList<Atraccion> atracciones) {
 		this.atracciones = atracciones;
 	}
@@ -54,14 +48,31 @@ public abstract class Promocion {
 		this.precioOriginal = precioOriginal;
 	}
 
-	public void setTipoDeAtraccionPromocion(TipoDeAtraccion tipoPromocion) {
-		this.preferenciaPromocion = tipoPromocion;
-	}
 
 	@Override
 	public String toString() {
-		return "Promocion [atracciones=" + atracciones + ", tipoPromocion=" + preferenciaPromocion + ", duracionTotal="
+		return "Promocion [atracciones=" + atracciones + ", tipoPromocion=" + tipoDePaquete + ", duracionTotal="
 				+ duracionTotal + ", precioTotal=" + precioConDescuento + "]";
 	}
 
+
+	public boolean hayCupo(){
+		for (Atraccion a: this.getAtracciones()){
+			if(!a.hayCupo())
+				return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean esPromocion(){
+		return true;
+	}
+
+	@Override
+	public void aumentarCuposOcupados(){
+		for(Atraccion a: this.atracciones){
+			a.aumentarCuposOcupados();
+		}
+	}
 }

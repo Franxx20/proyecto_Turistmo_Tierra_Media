@@ -1,69 +1,76 @@
 package proyecto_Turistmo_Tierra_Media;
 
-enum TipoDeAtraccion {
-	AVENTURA, PAISAJE, DEGUSTACION
-}
 
-public class Atraccion {
-	String nombre;
-	int costo;
-	double tiempo;
-	int cupo;
-	TipoDeAtraccion tipo;
+public class Atraccion extends paqueteTuristico {
+    String nombre;
+    int costo;
+    double tiempo;
+    int cupoMaximo;
 
-	public Atraccion(String nombre, TipoDeAtraccion tipo, int costo, double tiempo, int cupo) {
-		super();
-		this.nombre = nombre;
-		this.costo = costo;
-		this.tiempo = tiempo;
-		this.cupo = cupo;
-		this.tipo = tipo;
-	}
+    public Atraccion(String nombre, TipoDePaquete tipo, int costo, double tiempo, int cupoMaximo) {
+        super(tipo);
+        this.nombre = nombre;
+        this.costo = costo;
+        this.tiempo = tiempo;
+        this.cupoMaximo = cupoMaximo;
+    }
 
-	@Override
-	public String toString() {
-		return "\nAtraccion [nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo=" + cupo
-				+ ", tipo=" + tipo + "]" + "\n";
-	}
+    @Override
+    public String toString() {
+        return "\nAtraccion [nombre=" + nombre + ", costo=" + costo + ", tiempo=" + tiempo + ", cupo=" + cupoMaximo
+                + ", tipo=" + this.tipoDePaquete+ "]" + "\n";
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public int getCosto() {
-		return costo;
-	}
+    public int getCosto() {
+        return costo;
+    }
 
-	public void setCosto(int costo) {
-		this.costo = costo;
-	}
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
 
-	public double getTiempo() {
-		return tiempo;
-	}
+    public double getTiempo() {
+        return tiempo;
+    }
 
-	public void setTiempo(double tiempo) {
-		this.tiempo = tiempo;
-	}
+    public void setTiempo(double tiempo) {
+        this.tiempo = tiempo;
+    }
 
-	public int getCupo() {
-		return cupo;
-	}
+    public int getCupoMaximo() {
+        return cupoMaximo;
+    }
 
-	public void setCupo(int cupo) {
-		this.cupo = cupo;
-	}
+    public void setCupoMaximo(int cupoMaximo) {
+        this.cupoMaximo = cupoMaximo;
+    }
 
-	public TipoDeAtraccion getTipoDeAtraccion() {
-		return tipo;
-	}
+    public TipoDePaquete getTipoDePaquete() {
+        return tipoDePaquete;
+    }
 
-	public void setTipoDeAtraccion(TipoDeAtraccion tipo) {
-		this.tipo = tipo;
-	}
+    public void setTipoDeAtraccion(TipoDePaquete tipo) {
+        this.tipoDePaquete = tipo;
+    }
+
+
+    @Override
+    public boolean hayCupo() {
+        return this.getCupoMaximo() > 0;
+    }
+
+
+    @Override
+    public void aumentarCuposOcupados() {
+        this.cuposOcupados+=1;
+    }
 
 }
